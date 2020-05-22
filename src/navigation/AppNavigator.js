@@ -1,17 +1,27 @@
 import * as React from "react";
-import { View, Text } from "react-native";
+import { View, Text, AsyncStorage } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { AuthContext } from "../context/authContext";
 
 import Login from "../screens/Login/Login";
+import Topics from "../screens/Topics/Topics";
 import { COLORS } from "../components/ui";
 
 const Stack = createStackNavigator();
 
-function AppNavigator() {
+const AppNavigator = () => {
+  const { authState, authActions } = React.useContext(AuthContext);
+
+  React.useEffect(() => {
+    authActions.authStateChanged();
+  }, []);
+
   return (
     <NavigationContainer>
+      {console.log("authState", authState)}
       <Stack.Navigator
+        initialRouteName="Topics"
         screenOptions={{
           headerTitleStyle: {
             fontWeight: "bold",
@@ -35,14 +45,25 @@ function AppNavigator() {
           },
         }}
       >
-        <Stack.Screen
-          options={{ header: () => null }}
-          name="Login"
-          component={Login}
-        />
+        {!authState.user && (
+          <Stack.Screen
+            options={{ header: () => null }}
+            name="Login"
+            component={Login}
+          />
+        )}
+        {authState.user && (
+          <>
+            <Stack.Screen
+              options={{ headerTitle: "Topics" }}
+              name="Topics"
+              component={Topics}
+            />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
 export default AppNavigator;

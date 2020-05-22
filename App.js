@@ -4,6 +4,8 @@ import { Text, StyleSheet } from "react-native";
 import { useFonts } from "@use-expo/font";
 import { Block } from "./src/components/ui";
 import { AppLoading } from "expo";
+import "./secrets/firebaseConfig";
+import { AuthProvider } from "./src/context/authContext";
 
 export default function App() {
   const [isLoaded] = useFonts({
@@ -31,6 +33,10 @@ export default function App() {
         style: [styles.defaultFontFamily, origin.props.style],
       });
     };
-    return <AppNavigator />;
+    return (
+      <AuthProvider>
+        <AppNavigator />
+      </AuthProvider>
+    );
   }
 }
