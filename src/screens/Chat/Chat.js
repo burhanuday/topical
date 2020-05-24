@@ -2,7 +2,6 @@ import React from "react";
 import { Block, Text } from "../../components/ui";
 import { GiftedChat } from "react-native-gifted-chat";
 import { AuthContext } from "../../context/authContext";
-// import Bubble from "../../../node_modules/react-native-gifted-chat/lib/Bubble";
 import * as firebase from "firebase";
 import "firebase/firestore";
 import Bubble from "./Bubble";
@@ -31,19 +30,30 @@ const Chat = ({ navigation, route }) => {
           });
         });
         // console.log(messages);
-        setMessages(messages);
+        const sortedMessages = messages.sort(
+          (a, b) => b.createdAt - a.createdAt
+        );
+        setMessages(sortedMessages);
       });
   }, []);
 
-  const onSend = (message = []) => {
-    console.log(message);
+  const onSend = (sentMessages = []) => {
     const db = firebase.firestore();
-    message.forEach((mes) => {
-      db.collection("messages").add({ ...mes, slug: slug });
+    const batch = db.batch();
+    const messagesRef = db.collection("messages");
+    sentMessages.forEach((message) => {
+      const messageRef = messagesRef.doc(message._id);
+      batch.set(messageRef, { ...message, slug: slug });
+      // db.collection("messages").add({ ...message, slug: slug });
     });
-    const newMessages = GiftedChat.append(messages, message);
+    batch.commit();
+    // const newMessages = GiftedChat.append(messages, sentMessages);
     // console.log(newMessages);
-    setMessages(newMessages);
+
+    // const sortedMessages = newMessages.sort(
+    // (a, b) => b.createdAt - a.createdAt
+    // );
+    // setMessages(sortedMessages);
   };
 
   return (
@@ -57,6 +67,7 @@ const Chat = ({ navigation, route }) => {
           _id: authState.user.email,
           avatar: authState.user.photoUrl,
         }}
+        inverted={true}
         renderBubble={(props) => <Bubble {...props} />}
       />
     </Block>
