@@ -7,7 +7,7 @@ export const COLORS = {
   font: "#000000",
 
   // base colors
-  primary: "#e2434b",
+  primary: "#14213d",
   secondary: "#A3A1F7",
   tertiary: "#FFE358",
 

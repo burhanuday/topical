@@ -1,10 +1,12 @@
 import React from "react";
 import { Block, Text } from "../../components/ui";
-import { GiftedChat } from "react-native-gifted-chat";
+import { GiftedChat, Send } from "react-native-gifted-chat";
 import { AuthContext } from "../../context/authContext";
+import { Ionicons } from "@expo/vector-icons";
 import * as firebase from "firebase";
 import "firebase/firestore";
 import Bubble from "./Bubble";
+import { COLORS } from "../../components/ui/theme";
 
 const Chat = ({ navigation, route }) => {
   const { name, description, slug } = route.params;
@@ -69,6 +71,13 @@ const Chat = ({ navigation, route }) => {
         }}
         inverted={true}
         renderBubble={(props) => <Bubble {...props} />}
+        renderSend={(props) => (
+          <Send {...props}>
+            <Block flex={0} center middle marginRight={15}>
+              <Ionicons name="md-send" size={32} color={COLORS.primary} />
+            </Block>
+          </Send>
+        )}
       />
     </Block>
   );
