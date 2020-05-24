@@ -54,6 +54,7 @@ const Topics = ({ navigation }) => {
               key={topic.slug}
               title={topic.name}
               description={topic.description}
+              navigation={navigation}
             />
           );
         })}

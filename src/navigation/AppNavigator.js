@@ -6,6 +6,7 @@ import { AuthContext } from "../context/authContext";
 
 import Login from "../screens/Login/Login";
 import Topics from "../screens/Topics/Topics";
+import Chat from "../screens/Chat/Chat";
 import { COLORS } from "../components/ui";
 
 const Stack = createStackNavigator();
@@ -58,6 +59,11 @@ const AppNavigator = () => {
               options={{ headerTitle: "Topics" }}
               name="Topics"
               component={Topics}
+            />
+            <Stack.Screen
+              options={{ headerTitle: "Chat" }}
+              name="Chat"
+              component={Chat}
             />
           </>
         )}
