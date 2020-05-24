@@ -19,7 +19,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.burhanuday.topical-chat"
+      "package": "com.burhanuday.topicalChat"
     }
   }
 }

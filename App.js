@@ -4,10 +4,16 @@ import { Text, StyleSheet } from "react-native";
 import { useFonts } from "@use-expo/font";
 import { Block } from "./src/components/ui";
 import { AppLoading } from "expo";
-import "./secrets/firebaseConfig";
+import * as firebase from "firebase";
+import "firebase/database";
+import { firebaseConfig } from "./secrets/firebaseConfig";
 import { AuthProvider } from "./src/context/authContext";
 
 export default function App() {
+  React.useEffect(() => {
+    firebase.initializeApp(firebaseConfig);
+  }, []);
+
   const [isLoaded] = useFonts({
     "SourceSans-ExtraLight": require("./assets/fonts/SourceSansPro-ExtraLight.ttf"),
     "SourceSans-Light": require("./assets/fonts/SourceSansPro-Light.ttf"),
