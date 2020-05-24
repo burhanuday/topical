@@ -22,6 +22,7 @@ const TopicListItem = (props) => {
         radius={8}
         paddingHorizontal={15}
         paddingVertical={12}
+        marginBottom={7}
         row
       >
         <Block>

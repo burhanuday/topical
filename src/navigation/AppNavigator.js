@@ -56,7 +56,9 @@ const AppNavigator = () => {
         {authState.user && (
           <>
             <Stack.Screen
-              options={{ headerTitle: "Topics" }}
+              options={{
+                headerTitle: "Topical",
+              }}
               name="Topics"
               component={Topics}
             />
