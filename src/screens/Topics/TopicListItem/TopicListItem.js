@@ -7,7 +7,11 @@ const TopicListItem = (props) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        props.navigation.push("Chat");
+        props.navigation.push("Chat", {
+          slug: props.slug,
+          name: props.title,
+          description: props.description,
+        });
       }}
     >
       <Block

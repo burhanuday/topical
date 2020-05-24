@@ -55,6 +55,7 @@ const Topics = ({ navigation }) => {
               title={topic.name}
               description={topic.description}
               navigation={navigation}
+              slug={topic.slug}
             />
           );
         })}
