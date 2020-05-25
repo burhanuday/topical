@@ -1,5 +1,5 @@
 import React from "react";
-import { Block, Text } from "../../components/ui";
+import { Block, Text, LoadingIndicator } from "../../components/ui";
 import { GiftedChat, Send } from "react-native-gifted-chat";
 import { AuthContext } from "../../context/authContext";
 import { Ionicons } from "@expo/vector-icons";
@@ -13,12 +13,15 @@ const Chat = ({ navigation, route }) => {
   const { authState, authActions } = React.useContext(AuthContext);
 
   const [messages, setMessages] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
     navigation.setOptions({
       headerTitle: name,
       headerTintColor: "#fff",
     });
+
+    setLoading(true);
     const db = firebase.firestore();
     db.collection("messages")
       .where("slug", "==", slug)
@@ -36,6 +39,7 @@ const Chat = ({ navigation, route }) => {
           (a, b) => b.createdAt - a.createdAt
         );
         setMessages(sortedMessages);
+        setLoading(false);
       });
   }, []);
 
@@ -46,17 +50,17 @@ const Chat = ({ navigation, route }) => {
     sentMessages.forEach((message) => {
       const messageRef = messagesRef.doc(message._id);
       batch.set(messageRef, { ...message, slug: slug });
-      // db.collection("messages").add({ ...message, slug: slug });
     });
     batch.commit();
-    // const newMessages = GiftedChat.append(messages, sentMessages);
-    // console.log(newMessages);
-
-    // const sortedMessages = newMessages.sort(
-    // (a, b) => b.createdAt - a.createdAt
-    // );
-    // setMessages(sortedMessages);
   };
+
+  if (loading) {
+    return (
+      <Block safe center middle>
+        <LoadingIndicator />
+      </Block>
+    );
+  }
 
   return (
     <Block safe>

@@ -15,7 +15,7 @@ const TopicListItem = (props) => {
       }}
     >
       <Block
-        color="#e8e8e8"
+        color="rgba(20, 10, 150, 0.05)"
         borderColor="#d4d4d4"
         borderWidth={1}
         flex={0}

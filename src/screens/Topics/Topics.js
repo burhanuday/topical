@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Image } from "react-native";
-import { Block, Text } from "../../components/ui";
+import { Block, Text, LoadingIndicator } from "../../components/ui";
 import { AuthContext } from "../../context/authContext";
 import * as firebase from "firebase";
 import "firebase/firestore";
@@ -10,8 +10,10 @@ const Topics = ({ navigation }) => {
   const { authState, authActions } = React.useContext(AuthContext);
   const user = authState.user;
   const [topics, setTopics] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const db = firebase.firestore();
     console.log(user);
     db.collection("users").doc(user.email).set(user);
@@ -25,8 +27,17 @@ const Topics = ({ navigation }) => {
           topics.push(doc.data());
         });
         setTopics(topics);
+        setLoading(false);
       });
   }, []);
+
+  if (loading) {
+    return (
+      <Block safe center middle>
+        <LoadingIndicator />
+      </Block>
+    );
+  }
 
   return (
     <Block safe>
