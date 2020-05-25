@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "topical-app",
+    "name": "Topical",
     "slug": "topical-app",
     "privacy": "public",
     "platforms": ["ios", "android", "web"],
