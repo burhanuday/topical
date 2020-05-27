@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, StyleSheet, Image } from "react-native";
 import { Block, Text, Button } from "../../components/ui";
 import Svg, { Circle } from "react-native-svg";
 import Constants from "expo-constants";
@@ -8,6 +8,7 @@ import * as Google from "expo-google-app-auth";
 import { AsyncStorage } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { AuthContext } from "../../context/authContext";
+import icon from "../../../assets/icon.png";
 
 const statusBarHeight = Constants.statusBarHeight;
 const deviceWidth = Dimensions.get("window").width;
@@ -39,13 +40,27 @@ const Login = ({ navigation }) => {
       <Block
         style={[
           { ...StyleSheet.absoluteFillObject },
-          { paddingTop: statusBarHeight + 200 },
+          {
+            paddingTop: statusBarHeight + 100,
+            marginLeft: deviceWidth / 2 - 75,
+          },
         ]}
       >
-        <Text primary>Add logo here later</Text>
+        <Image
+          style={{
+            height: 150,
+            width: 150,
+          }}
+          source={icon}
+        />
+        <Block width={150} flex={0} marginTop={15}>
+          <Text primary bold h1 center>
+            TOPICAL
+          </Text>
+        </Block>
       </Block>
       <Block center marginTop={deviceHeight / 2 + 100}>
-        <Text white h1 bold spacing={1}>
+        <Text white h2 bold spacing={1}>
           LOGIN
         </Text>
         <Text paddingTop={10} white h3 bold subtitle>
