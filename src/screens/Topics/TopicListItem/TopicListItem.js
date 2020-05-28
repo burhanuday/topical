@@ -23,6 +23,7 @@ const TopicListItem = (props) => {
         paddingHorizontal={15}
         paddingVertical={12}
         marginBottom={7}
+        marginHorizontal={15}
         row
       >
         <Block>

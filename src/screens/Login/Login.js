@@ -24,6 +24,7 @@ async function signInWithGoogleAsync() {
       androidClientId: androidClientId,
       androidStandaloneAppClientId: androidStandaloneAppClientId,
       scopes: ["profile", "email"],
+      behavior: "web",
     });
 
     if (result.type === "success") {

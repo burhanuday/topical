@@ -64,6 +64,17 @@ const Chat = ({ navigation, route }) => {
 
   return (
     <Block safe>
+      <Block
+        white
+        flex={0}
+        color="#e2e2e2"
+        paddingHorizontal={10}
+        paddingVertical={5}
+      >
+        <Text subtitle center color="#848484">
+          Remember to stay civil during conversations
+        </Text>
+      </Block>
       <GiftedChat
         messages={messages}
         renderUsernameOnMessage={true}
@@ -73,7 +84,17 @@ const Chat = ({ navigation, route }) => {
           _id: authState.user.email,
           avatar: authState.user.photoUrl,
         }}
-        inverted={true}
+        renderChatEmpty={() => (
+          <Block
+            marginBottom={30}
+            style={{ transform: [{ scaleY: -1 }] }}
+            flex={1}
+          >
+            <Text center primary>
+              Start a conversation by sending the first message
+            </Text>
+          </Block>
+        )}
         renderBubble={(props) => <Bubble {...props} />}
         renderSend={(props) => (
           <Send {...props}>

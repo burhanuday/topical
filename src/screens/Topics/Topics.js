@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Image } from "react-native";
+import { Image, FlatList } from "react-native";
 import { Block, Text, LoadingIndicator } from "../../components/ui";
 import { AuthContext } from "../../context/authContext";
 import * as firebase from "firebase";
@@ -55,21 +55,24 @@ const Topics = ({ navigation }) => {
         </Text>
       </Block>
 
-      <Block paddingHorizontal={10} marginTop={15}>
-        <Text h2 bold marginBottom={10}>
+      <Block marginTop={15}>
+        <Text marginLeft={15} h2 bold marginBottom={10}>
           Topics
         </Text>
-        {topics.map((topic) => {
-          return (
+
+        <FlatList
+          data={topics}
+          renderItem={({ item }) => (
             <TopicListItem
-              key={topic.slug}
-              title={topic.name}
-              description={topic.description}
+              key={item.slug}
+              title={item.name}
+              description={item.description}
               navigation={navigation}
-              slug={topic.slug}
+              slug={item.slug}
             />
-          );
-        })}
+          )}
+          keyExtractor={(item) => item.slug}
+        />
       </Block>
     </Block>
   );
