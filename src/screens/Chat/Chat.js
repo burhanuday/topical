@@ -7,6 +7,7 @@ import * as firebase from "firebase";
 import "firebase/firestore";
 import Bubble from "./Bubble";
 import { COLORS } from "../../components/ui/theme";
+import { TouchableOpacity } from "react-native";
 
 const Chat = ({ navigation, route }) => {
   const { name, description, slug } = route.params;
@@ -102,6 +103,17 @@ const Chat = ({ navigation, route }) => {
               <Ionicons name="md-send" size={32} color={COLORS.primary} />
             </Block>
           </Send>
+        )}
+        renderActions={(props) => (
+          <TouchableOpacity
+            onPress={() => {
+              console.log("clicked");
+            }}
+          >
+            <Block flex={0} {...props} marginLeft={10}>
+              <Ionicons name="md-attach" size={32} color={COLORS.primary} />
+            </Block>
+          </TouchableOpacity>
         )}
       />
     </Block>

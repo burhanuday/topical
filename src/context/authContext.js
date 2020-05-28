@@ -31,6 +31,8 @@ const AuthProvider = (props) => {
         user = JSON.parse(user);
         if (user && user.accessToken) {
           dispatch({ type: AUTH_STATE_CHANGED, payload: user });
+        } else {
+          dispatch({ type: AUTH_STATE_CHANGED, payload: null });
         }
       }
     },

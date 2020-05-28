@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Dimensions, StyleSheet, Image } from "react-native";
+import { Dimensions, StyleSheet, Image, App } from "react-native";
 import { Block, Text, Button } from "../../components/ui";
 import Svg, { Circle } from "react-native-svg";
 import Constants from "expo-constants";
@@ -13,6 +13,8 @@ import {
   androidClientId,
   androidStandaloneAppClientId,
 } from "../../../secrets/googleClientIds";
+// import * as GoogleSignIn from "expo-google-sign-in";
+import * as AppAuth from "expo-app-auth";
 
 const statusBarHeight = Constants.statusBarHeight;
 const deviceWidth = Dimensions.get("window").width;
@@ -25,6 +27,7 @@ async function signInWithGoogleAsync() {
       androidStandaloneAppClientId: androidStandaloneAppClientId,
       scopes: ["profile", "email"],
       behavior: "web",
+      redirectUrl: `${AppAuth.OAuthRedirect}:/oauth2redirect/google`,
     });
 
     if (result.type === "success") {
@@ -39,6 +42,29 @@ async function signInWithGoogleAsync() {
 
 const Login = ({ navigation }) => {
   const { authState, authActions } = React.useContext(AuthContext);
+
+  /* const initAsync = async () => {
+    await GoogleSignIn.initAsync();
+  };
+
+  const signInAsync = async () => {
+    try {
+      await GoogleSignIn.askForPlayServicesAsync();
+      const { type, user } = await GoogleSignIn.signInAsync();
+      if (type === "success") {
+        console.log(user);
+      }
+    } catch ({ message }) {
+      alert("login: Error:" + message);
+    }
+  };
+
+  React.useEffect(() => {
+    const init = async () => {
+      await initAsync();
+    };
+    init();
+  }, []); */
 
   return (
     <Block paddingTop={statusBarHeight}>

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Image, FlatList } from "react-native";
+import { Image, FlatList, TouchableOpacity, AsyncStorage } from "react-native";
 import { Block, Text, LoadingIndicator } from "../../components/ui";
 import { AuthContext } from "../../context/authContext";
 import * as firebase from "firebase";
 import "firebase/firestore";
 import TopicListItem from "./TopicListItem/TopicListItem";
+import { Ionicons } from "@expo/vector-icons";
 
 const Topics = ({ navigation }) => {
   const { authState, authActions } = React.useContext(AuthContext);
@@ -13,6 +14,23 @@ const Topics = ({ navigation }) => {
   const [loading, setLoading] = React.useState(false);
 
   useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={async () => {
+            await AsyncStorage.removeItem("@user");
+            authActions.authStateChanged(null);
+            console.log(authState);
+          }}
+          style={{
+            marginRight: 10,
+          }}
+        >
+          <Ionicons name="md-exit" size={28} color="white" />
+        </TouchableOpacity>
+      ),
+    });
+
     setLoading(true);
     const db = firebase.firestore();
     console.log(user);
@@ -42,16 +60,16 @@ const Topics = ({ navigation }) => {
   return (
     <Block safe>
       <Block primary flex={0} paddingHorizontal={20} row paddingBottom={12}>
-        {user.photoUrl && (
+        {user && user.photoUrl && (
           <Image
             style={{ height: 32, width: 32, borderRadius: 16, marginRight: 12 }}
             source={{
-              uri: user.photoUrl,
+              uri: (user && user.photoUrl) || "",
             }}
           />
         )}
         <Text bold h2 white>
-          {user.name}
+          {user && user.name}
         </Text>
       </Block>
 
