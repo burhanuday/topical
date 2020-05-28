@@ -9,6 +9,10 @@ import { AsyncStorage } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { AuthContext } from "../../context/authContext";
 import icon from "../../../assets/icon.png";
+import {
+  androidClientId,
+  androidStandaloneAppClientId,
+} from "../../../secrets/googleClientIds";
 
 const statusBarHeight = Constants.statusBarHeight;
 const deviceWidth = Dimensions.get("window").width;
@@ -17,8 +21,8 @@ const deviceHeight = Dimensions.get("window").height;
 async function signInWithGoogleAsync() {
   try {
     const result = await Google.logInAsync({
-      androidClientId:
-        "858682553926-fmacvcp9ebri8ncqtcaadgdp2n6vp9f9.apps.googleusercontent.com",
+      androidClientId: androidClientId,
+      androidStandaloneAppClientId: androidStandaloneAppClientId,
       scopes: ["profile", "email"],
     });
 

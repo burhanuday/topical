@@ -21,7 +21,13 @@
     },
     "android": {
       "package": "com.burhanuday.topicalChat",
-      "versionCode": 1
+      "versionCode": 1,
+      "config": {
+        "googleSignIn": {
+          "apiKey": "AIzaSyBq5YZKudKDd838ljqQZ-gRYvtLzvE_xMY",
+          "certificateHash": "E0923B0496F44DC30A7184E5AAAD1826CDBD2231"
+        }
+      }
     }
   }
 }
