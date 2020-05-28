@@ -8,6 +8,7 @@ import "firebase/firestore";
 import Bubble from "./Bubble";
 import { COLORS } from "../../components/ui/theme";
 import { TouchableOpacity } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 
 const Chat = ({ navigation, route }) => {
   const { name, description, slug } = route.params;
@@ -106,8 +107,30 @@ const Chat = ({ navigation, route }) => {
         )}
         renderActions={(props) => (
           <TouchableOpacity
-            onPress={() => {
+            onPress={async () => {
               console.log("clicked");
+              // await ImagePicker.requestCameraPermissionsAsync();
+              try {
+                let result = await ImagePicker.launchImageLibraryAsync({
+                  mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                  quality: 1,
+                });
+                if (!result.cancelled) {
+                  // this.setState({ image: result.uri });
+                  /* const db = firebase.firestore();
+                  const batch = db.batch();
+                  const messagesRef = db.collection("messages");
+                  sentMessages.forEach((message) => {
+                    const messageRef = messagesRef.doc(message._id);
+                    batch.set(messageRef, { ...message, slug: slug });
+                  });
+                  batch.commit(); */
+                }
+
+                console.log(result);
+              } catch (E) {
+                console.log(E);
+              }
             }}
           >
             <Block flex={0} {...props} marginLeft={10}>

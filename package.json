@@ -16,6 +16,8 @@
     "expo-app-auth": "~9.0.0",
     "expo-google-app-auth": "^8.1.0",
     "expo-google-sign-in": "~8.1.0",
+    "expo-image-picker": "~8.1.0",
+    "expo-permissions": "~8.1.0",
     "firebase": "7.9.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
