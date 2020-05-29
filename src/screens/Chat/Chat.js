@@ -172,6 +172,7 @@ const Chat = ({ navigation, route }) => {
                             createdAt: firebase.firestore.Timestamp.fromDate(
                               new Date()
                             ),
+                            _id: fileName,
                           });
                           batch.commit();
                         });

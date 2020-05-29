@@ -20,7 +20,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.burhanuday.topicalChat",
+      "package": "com.burhanuday.topicalchat",
       "versionCode": 1,
       "config": {
         "googleSignIn": {
