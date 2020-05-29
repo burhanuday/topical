@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/authContext";
 import { Ionicons } from "@expo/vector-icons";
 import * as firebase from "firebase";
 import "firebase/firestore";
+import "firebase/storage";
 import Bubble from "./Bubble";
 import { COLORS } from "../../components/ui/theme";
 import { TouchableOpacity } from "react-native";
@@ -46,11 +47,12 @@ const Chat = ({ navigation, route }) => {
   }, []);
 
   const onSend = (sentMessages = []) => {
+    console.log(sentMessages);
     const db = firebase.firestore();
     const batch = db.batch();
     const messagesRef = db.collection("messages");
     sentMessages.forEach((message) => {
-      const messageRef = messagesRef.doc(message._id);
+      const messageRef = messagesRef.doc();
       batch.set(messageRef, { ...message, slug: slug });
     });
     batch.commit();
@@ -113,18 +115,68 @@ const Chat = ({ navigation, route }) => {
               try {
                 let result = await ImagePicker.launchImageLibraryAsync({
                   mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                  quality: 1,
+                  quality: 0,
                 });
                 if (!result.cancelled) {
                   // this.setState({ image: result.uri });
-                  /* const db = firebase.firestore();
-                  const batch = db.batch();
-                  const messagesRef = db.collection("messages");
-                  sentMessages.forEach((message) => {
-                    const messageRef = messagesRef.doc(message._id);
-                    batch.set(messageRef, { ...message, slug: slug });
-                  });
-                  batch.commit(); */
+                  const fileName = `${slug}_${new Date().valueOf()}_${result.uri
+                    .split("/")
+                    .pop()}`;
+                  console.log(fileName);
+                  const storage = firebase.storage();
+                  const storageRef = storage.ref();
+                  const imageRef = storageRef.child("images/" + fileName);
+
+                  const response = await fetch(result.uri);
+                  const blob = await response.blob();
+
+                  const uploadTask = imageRef.put(blob);
+
+                  uploadTask.on(
+                    "state_changed",
+                    function (snapshot) {
+                      // Observe state change events such as progress, pause, and resume
+                      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                      let progress =
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                      console.log("Upload is " + progress + "% done");
+                      switch (snapshot.state) {
+                        case firebase.storage.TaskState.PAUSED: // or 'paused'
+                          console.log("Upload is paused");
+                          break;
+                        case firebase.storage.TaskState.RUNNING: // or 'running'
+                          console.log("Upload is running");
+                          break;
+                      }
+                    },
+                    function (error) {
+                      // Handle unsuccessful uploads
+                    },
+                    function () {
+                      uploadTask.snapshot.ref
+                        .getDownloadURL()
+                        .then(function (downloadURL) {
+                          console.log("File available at", downloadURL);
+                          const db = firebase.firestore();
+                          const batch = db.batch();
+                          const messagesRef = db.collection("messages");
+                          const messageRef = messagesRef.doc();
+                          batch.set(messageRef, {
+                            user: {
+                              ...authState.user,
+                              _id: authState.user.email,
+                              avatar: authState.user.photoUrl,
+                            },
+                            image: downloadURL,
+                            slug: slug,
+                            createdAt: firebase.firestore.Timestamp.fromDate(
+                              new Date()
+                            ),
+                          });
+                          batch.commit();
+                        });
+                    }
+                  );
                 }
 
                 console.log(result);
