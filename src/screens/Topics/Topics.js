@@ -73,12 +73,11 @@ const Topics = ({ navigation }) => {
         </Text>
       </Block>
 
-      <Block marginTop={15}>
-        <Text marginLeft={15} h2 bold marginBottom={10}>
-          Topics
-        </Text>
-
+      <Block>
         <FlatList
+          ItemSeparatorComponent={() => (
+            <Block flex={0} height={1} color="rgba(0, 0, 0, 0.05)"></Block>
+          )}
           data={topics}
           renderItem={({ item }) => (
             <TopicListItem
@@ -87,6 +86,7 @@ const Topics = ({ navigation }) => {
               description={item.description}
               navigation={navigation}
               slug={item.slug}
+              icon={item.icon}
             />
           )}
           keyExtractor={(item) => item.slug}
