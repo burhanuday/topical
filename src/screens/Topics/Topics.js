@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Image, FlatList, TouchableOpacity, AsyncStorage } from "react-native";
-import { Block, Text, LoadingIndicator } from "../../components/ui";
+import {
+  Image,
+  FlatList,
+  TouchableOpacity,
+  AsyncStorage,
+  StatusBar,
+} from "react-native";
+import { Block, Text, LoadingIndicator, COLORS } from "../../components/ui";
 import { AuthContext } from "../../context/authContext";
 import * as firebase from "firebase";
 import "firebase/firestore";
@@ -59,6 +65,7 @@ const Topics = ({ navigation }) => {
 
   return (
     <Block safe>
+      <StatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
       <Block primary flex={0} paddingHorizontal={20} row paddingBottom={12}>
         {user && user.photoUrl && (
           <Image

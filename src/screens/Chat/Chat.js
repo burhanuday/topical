@@ -8,7 +8,7 @@ import "firebase/firestore";
 import "firebase/storage";
 import Bubble from "./Bubble";
 import { COLORS } from "../../components/ui/theme";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, StatusBar } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 const Chat = ({ navigation, route }) => {
@@ -61,6 +61,7 @@ const Chat = ({ navigation, route }) => {
   if (loading) {
     return (
       <Block safe center middle>
+        <StatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
         <LoadingIndicator />
       </Block>
     );
@@ -68,6 +69,7 @@ const Chat = ({ navigation, route }) => {
 
   return (
     <Block safe>
+      <StatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
       <Block
         white
         flex={0}

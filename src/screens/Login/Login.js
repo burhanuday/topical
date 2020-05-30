@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Dimensions, StyleSheet, Image, App } from "react-native";
+import { Dimensions, StyleSheet, Image, StatusBar } from "react-native";
 import { Block, Text, Button } from "../../components/ui";
 import Svg, { Circle } from "react-native-svg";
 import Constants from "expo-constants";
@@ -68,6 +68,7 @@ const Login = ({ navigation }) => {
 
   return (
     <Block paddingTop={statusBarHeight}>
+      <StatusBar backgroundColor={COLORS.white} barStyle="dark-content" />
       <Block
         style={[
           { ...StyleSheet.absoluteFillObject },
@@ -84,15 +85,10 @@ const Login = ({ navigation }) => {
           }}
           source={icon}
         />
-        <Block width={150} flex={0} marginTop={15}>
-          <Text primary bold h1 center>
-            TOPICAL
-          </Text>
-        </Block>
       </Block>
       <Block center marginTop={deviceHeight / 2 + 100}>
-        <Text white h2 bold spacing={1}>
-          LOGIN
+        <Text white h1 bold>
+          TOPICAL
         </Text>
         <Text paddingTop={10} white h3 bold subtitle>
           Login with Google to get started
