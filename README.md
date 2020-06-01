@@ -20,7 +20,7 @@ Topical is a topic based chat application where users participate in conversatio
 
 You can use Topical in any of the following methods:
 
-- Download a compiled APK from the releases tab
+- Download a compiled APK from the releases tab - [Releases](https://github.com/burhanuday/topical/releases)
 - Use this expo URL to run the app on the expo client on your Android device - [Expo](https://expo.io/@burhanuday/topical-app)
 
 ## Build your own
