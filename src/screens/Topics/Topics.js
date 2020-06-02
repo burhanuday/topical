@@ -79,6 +79,9 @@ const Topics = ({ navigation }) => {
           {user && user.name}
         </Text>
       </Block>
+      <Block color="rgba(20, 33, 100, 0.2)" flex={0}>
+        <Text center primary subtitle>Join one of the rooms below and start talking!</Text>
+      </Block>
 
       <Block>
         <FlatList
