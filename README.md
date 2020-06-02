@@ -4,7 +4,7 @@
 
 # Topical
 
-Topical is a topic based chat application where users participate in conversations in large numbers
+Topical is a topic based chat application where users participate in conversations in large numbers. Each chat revolves around a central topic which users can discuss
 
 <div style="text-align: center;">
     <img src="./screenshots/screenshots.png" alt="screenshot" width="100%"/>
@@ -15,6 +15,7 @@ Topical is a topic based chat application where users participate in conversatio
 - Send links
 - Ability to send photos
 - Sign in via Google directly, no registration required
+- OTA updates with Expo
 
 ## Download
 
